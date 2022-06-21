@@ -85,7 +85,7 @@ public class ProductService implements IProductService {
     public Product findByTitle(String title) {
         List<Product> products = findAll();
         for (Product product : products) {
-            if (product.getTitle().toLowerCase().contains(title.toLowerCase())) return product;
+            if (product.getTitle().toLowerCase().equals(title.toLowerCase())) return product;
         }
         return null;
     }

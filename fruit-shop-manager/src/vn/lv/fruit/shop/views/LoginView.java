@@ -1,5 +1,7 @@
 package vn.lv.fruit.shop.views;
 
+import vn.lv.fruit.shop.model.Role;
+import vn.lv.fruit.shop.model.User;
 import vn.lv.fruit.shop.services.IUserService;
 import vn.lv.fruit.shop.services.UserService;
 import vn.lv.fruit.shop.utils.AppUtils;
@@ -7,16 +9,17 @@ import vn.lv.fruit.shop.utils.AppUtils;
 import java.util.Scanner;
 
 
-public class AdminView {//Single Responsibility Principle (SOLID)
+public class LoginView {//Single Responsibility Principle (SOLID)
     private final IUserService userService; //Dependency Inversion Principle (SOLID)
     private final Scanner scanner = new Scanner(System.in);
+    User user = new User();
 
-    public AdminView() {
+    public LoginView() {
         userService = UserService.getInstance();
     }
 
-    public void adminLogin() {
-        boolean isRetry;
+    public void login() {
+        boolean isRetry = false;
         System.out.print("╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗\n" +
                 "║                                                                                                                                                                              ║\n" +
                 "║                                                                                  \033[1;94mĐĂNG NHẬP HỆ THỐNG\033[0m                                                                          ║\n" +
@@ -28,13 +31,21 @@ public class AdminView {//Single Responsibility Principle (SOLID)
             String username = AppUtils.retryString();
             System.out.println("Mật khẩu");
             String password = AppUtils.retryString();
-            if (userService.adminLogin(username, password) == null) {
+            user = userService.login(username, password);
+            if (user == null) {
                 System.out.println("Tài khoản không hợp lệ! ");
                 isRetry = isRetry();
-            } else {
-                System.out.println("Bạn đã đăng nhập thành công!");
+                login();
+            }
+             if (user.getRole()==Role.ADMIN){
+                System.out.println("Bạn đã đăng nhập với quyền Admin thành công!");
                 System.out.println("CHÀO MỪNG BẠN ĐÃ ĐẾN VỚI CỬA HÀNG TRÁI CÂY NHÀ LÀM\n");
-                isRetry = false;
+                MainLauncher.menuOption();
+            }
+            else {
+                System.out.println("Bạn đã đăng nhập với quyền User thành công!");
+                System.out.println("CHÀO MỪNG BẠN ĐÃ ĐẾN VỚI CỬA HÀNG TRÁI CÂY NHÀ LÀM\n");
+                MemberView.launch();
             }
         } while (isRetry);
     }

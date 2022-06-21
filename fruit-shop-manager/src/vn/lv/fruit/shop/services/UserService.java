@@ -36,11 +36,10 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User adminLogin(String username, String password) {
+    public User login(String username, String password) {
         List<User> users = findAll();
         for (User user : users) {
-            if (user.getUsername().equals(username) && user.getPassword().equals(password)
-                    && user.getRole().equals(Role.ADMIN)) {
+            if (user.getUsername().equals(username) && user.getPassword().equals(password)){
                 return user;
             }
         }
