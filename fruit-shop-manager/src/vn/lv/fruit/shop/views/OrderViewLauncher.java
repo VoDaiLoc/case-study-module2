@@ -21,6 +21,7 @@ public class OrderViewLauncher {
                     orderView.showAllOrder();
                     break;
                 case 3:
+                    MainLauncher.menuOption();
                     break;
                 case 0:
                     AppUtils.exit();

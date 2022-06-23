@@ -143,8 +143,6 @@ public class UserService implements IUserService {
     @Override
     public void deleteById(long id) {
         List<User> users = findAll();
-
-        //class vo danh
         users.removeIf(new Predicate<User>() {
             @Override
             public boolean test(User user) {

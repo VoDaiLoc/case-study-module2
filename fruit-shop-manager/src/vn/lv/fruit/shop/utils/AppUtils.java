@@ -42,7 +42,7 @@ public class AppUtils {
     public static String retryString() {
         String result;
         System.out.print(" ⭆ ");
-        while ((result = scanner.nextLine()).isEmpty()) {
+        while (((result = scanner.nextLine()).trim()).isEmpty()) {
             System.out.println("không được để trống");
             System.out.print(" ⭆ ");
         }

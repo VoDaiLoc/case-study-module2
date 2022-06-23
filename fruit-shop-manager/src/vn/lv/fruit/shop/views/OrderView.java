@@ -58,7 +58,7 @@ public class OrderView {//Single Responsibility Principle (SOLID)
         double currentQuantity = oldQuantity - quantity;
         product.setQuantity(currentQuantity);
         productService.update(product);
-        Instant creatAt = Instant.now();// xem
+        Instant creatAt = Instant.now();
         OrderItem orderItem = new OrderItem(id, price, quantity, orderId, fruitId, fruitName, total, creatAt);
         return orderItem;
     }
@@ -93,7 +93,12 @@ public class OrderView {//Single Responsibility Principle (SOLID)
                 phone = scanner.nextLine();
             }
             System.out.println("Nhập địa chỉ: ");
-            String address = AppUtils.retryString();
+            String address;
+            while (!ValidateUtils.isAddressValid(address = scanner.nextLine().trim())) {
+                System.out.println("Địa chỉ " + address + " không đúng định dạng." + " Vui lòng nhập lại!");
+                System.out.println("Nhập tên (vd: An Cuu-Hue) ");
+                System.out.print(" ⭆ ");
+            }
             OrderItem orderItem = addOrderItems(orderId);
             Order order = new Order(orderId, name, phone, address);
             orderItemService.add(orderItem);

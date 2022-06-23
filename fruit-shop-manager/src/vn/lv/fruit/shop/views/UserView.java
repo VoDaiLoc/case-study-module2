@@ -361,6 +361,12 @@ public class UserView {
                 System.out.println("Nhập địa chỉ mà bạn muốn đổi");
                 break;
         }
-        return AppUtils.retryString();
+        String address;
+        while (!ValidateUtils.isAddressValid(address = scanner.nextLine().trim())) {
+            System.out.println("Địa chỉ " + address + " không đúng định dạng." + " Vui lòng nhập lại!");
+            System.out.println("Nhập tên (vd: An Cuu-Hue) ");
+            System.out.print(" ⭆ ");
+        }
+        return address;
     }
 }
